@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@raydium-io/raydium-sdk-v2": "^0.1.115-alpha"
+  }
+}
