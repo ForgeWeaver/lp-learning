@@ -3,9 +3,7 @@ import fs from "fs/promises";
 import os from "os";
 import { Keypair } from "@solana/web3.js";
 
-export async function getKeypairFromFileAsync(
-  filePath: string
-): Promise<Keypair> {
+async function getKeypairFromFileAsync(filePath: string): Promise<Keypair> {
   try {
     const rawData = await fs.readFile(filePath, "utf-8");
     const secretKeyArray: number[] = JSON.parse(rawData);
