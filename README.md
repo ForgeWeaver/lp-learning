@@ -39,4 +39,11 @@ solana address
 solana config set -ud
 solana airdrop 2
 solana balance
+solana transfer ${SOL_ADDR}$ 1
+```
+
+## Instal Raydium SDK v2
+
+```shell
+npm install @raydium-io/raydium-sdk-v2
 ```
