@@ -19,8 +19,9 @@ if (!secretKeyBase58) {
 export const owner = Keypair.fromSecretKey(bs58.decode(secretKeyBase58));
 console.log("Owner public key:", owner.publicKey.toString());
 
-export const connection = new Connection("https://transaction-v1.raydium.io/$"); //<YOUR_RPC_URL>
-// export const connection = new Connection(clusterApiUrl('devnet')) //<YOUR_RPC_URL>
+// Note: Raydium API doesn't support Devnet
+// export const connection = new Connection("https://transaction-v1.raydium.io/$"); //<YOUR_RPC_URL>
+export const connection = new Connection(clusterApiUrl("devnet")); //<YOUR_RPC_URL>
 export const txVersion = TxVersion.V0; // or TxVersion.LEGACY
 const cluster = "devnet"; // 'mainnet' | 'devnet'
 

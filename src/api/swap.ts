@@ -5,7 +5,6 @@ import {
   Transaction,
   VersionedTransaction,
   sendAndConfirmTransaction,
-  PublicKey,
 } from "@solana/web3.js";
 import { NATIVE_MINT } from "@solana/spl-token";
 import axios from "axios";
@@ -40,7 +39,8 @@ interface SwapCompute {
 
 // Configuration
 const inputMint = NATIVE_MINT.toBase58(); // SOL
-const outputMint = "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"; // USDC
+// https://github.com/raydium-io/raydium-sdk/issues/62
+const outputMint = "9T7uw5dqaEmEC4McqyefzYsEg5hoC4e2oV8it1Uc4f1U"; // USDC
 const amount = "10000000"; // 0.01 SOL in lamports (10^6 for SOL)
 const slippage = 0.5; // 0.5% slippage
 const txVersion: string = "V0"; // Use "V0" for VersionedTransaction, "LEGACY" for Transaction
@@ -50,6 +50,17 @@ const isOutputSol = outputMint === NATIVE_MINT.toBase58();
 
 async function performSwap() {
   try {
+    // Check if owner has SOL balance
+    const balance = await connection.getBalance(owner.publicKey);
+    if (balance < parseInt(amount) + 5000) {
+      // 5000 lamports for fees
+      throw new Error(
+        `Insufficient SOL balance: ${balance} lamports. Need at least ${
+          parseInt(amount) + 5000
+        } lamports.`
+      );
+    }
+
     // Step 1: Fetch swap computation
     const { data: swapResponse } = await axios.get<SwapCompute>(
       `${
@@ -62,12 +73,15 @@ async function performSwap() {
 
     // Step 2: Fetch token accounts (assuming fetchTokenAccountData is defined in config)
     const { tokenAccounts } = await fetchTokenAccountData();
+    console.log("Token Accounts:", tokenAccounts);
     const inputTokenAcc = tokenAccounts.find(
       (a) => a.mint.toBase58() === inputMint
     )?.publicKey;
+    console.log("Input Token:", inputTokenAcc);
     const outputTokenAcc = tokenAccounts.find(
       (a) => a.mint.toBase58() === outputMint
     )?.publicKey;
+    console.log("Output Token:", outputTokenAcc);
 
     // Step 3: Fetch priority fee stats (optional)
     const { data: feeData } = await axios.get<{
