@@ -4,6 +4,7 @@ Learning Liquidity Provision
 
 ## References
 
+- [Orca Whirlpools Environment Setup](https://dev.orca.so/Whirlpools%20SDKs/Whirlpools/Environment%20Setup)
 - [Raydium API Docs](https://docs.raydium.io/raydium)
 - [Solana Docs](https://solana.com/docs)
 
@@ -46,4 +47,10 @@ solana transfer ${SOL_ADDR}$ 1
 
 ```shell
 npm install @raydium-io/raydium-sdk-v2
+```
+
+## Setup Orca Whirlpools SDK
+
+```shell
+cargo add orca_whirlpools
 ```
