@@ -20,8 +20,8 @@ export const owner = Keypair.fromSecretKey(bs58.decode(secretKeyBase58));
 console.log("Owner public key:", owner.publicKey.toString());
 
 // Note: Raydium API doesn't support Devnet
-// export const connection = new Connection("https://transaction-v1.raydium.io/$"); //<YOUR_RPC_URL>
-export const connection = new Connection(clusterApiUrl("devnet")); //<YOUR_RPC_URL>
+export const connection = new Connection("https://api-v3.raydium.io/"); //<YOUR_RPC_URL>
+// export const connection = new Connection(clusterApiUrl("devnet")); //<YOUR_RPC_URL>
 export const txVersion = TxVersion.V0; // or TxVersion.LEGACY
 const cluster = "devnet"; // 'mainnet' | 'devnet'
 
@@ -44,6 +44,7 @@ export const initSdk = async (params?: { loadToken?: boolean }) => {
     //   BASE_HOST: '<API_HOST>', // api url configs, currently api doesn't support devnet
     // },
   });
+  console.log("Raydium API", raydium.api);
 
   /**
    * By default: sdk will automatically fetch token account data when need it or any sol balace changed.
