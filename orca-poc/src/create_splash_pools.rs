@@ -8,7 +8,7 @@ use std::str::FromStr;
 use tokio;
 
 #[tokio::main]
-async fn main() {
+async fn run() {
     // Creating Splash Pools
     // https://dev.orca.so/Whirlpools%20SDKs/Whirlpools/Whirlpool%20Management/Create%20Pool#creating-splash-pools
     set_whirlpools_config_address(WhirlpoolsConfigInput::SolanaDevnet).unwrap();

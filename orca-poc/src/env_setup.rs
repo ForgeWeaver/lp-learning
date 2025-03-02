@@ -4,7 +4,8 @@ use solana_client::rpc_client::RpcClient;
 use solana_sdk::signer::Signer;
 
 // https://dev.orca.so/Whirlpools%20SDKs/Whirlpools/Environment%20Setup
-fn main() {
+#[allow(dead_code)]
+pub fn run() {
     // Wallet Management
     let wallet = get_wallet();
 
